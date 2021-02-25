@@ -5,7 +5,6 @@ provider "aws" {
 }
 
 module "network" {
-  #source = "./network"
   source    = "github.com/npc-code/toy_terraform_network.git"
   profile   = var.profile
   region    = var.primary-region
@@ -17,7 +16,6 @@ module "network" {
 }
 
 module "ecs" {
-  #source = "./ecs"
   source                = "github.com/npc-code/toy_ecs_code_pipeline.git"
   cluster_name          = "${var.prefix}-cluster"
   container_name        = "${var.prefix}-container"
@@ -31,7 +29,9 @@ module "ecs" {
   alb_port              = 80
   region                = var.primary-region
   ecr_repo_name         = "${var.prefix}-ecr-repo"
-  availability_zones    = ["${module.network.public_subnet_1_id}", "${module.network.public_subnet_2_id}"]
+  subnets               = module.network.public_subnets
+  container_subnets     = module.network.private_subnets
+
   providers = {
     aws = aws.main-account
   }
@@ -45,8 +45,7 @@ module "pipeline" {
   repository_url = module.ecs.ecr_webapp_repository_url
   container_name = "${var.prefix}-container"
 
-  subnet_ids = ["${module.network.public_subnet_1_id}", "${module.network.public_subnet_2_id}"]
-  vpc_id     = module.network.vpc_id
+  vpc_id = module.network.vpc_id
 
   app_repository_name = module.ecs.ecr_webapp_repository_name
   app_service_name    = "${var.prefix}-cluster"
