@@ -21,6 +21,14 @@ A simple POC for working with AWS via Terraform.  Currently this will only work 
 - Populate dev.tfvars with the necessary values
 
 ## Example .tfvar file
+```hcl
+region         = "us-east-2"
+prefix         = "dev"
+vpc_cidr       = "10.1.0.0/16"
+oauth_token    = "your_token_here"
+profile        = "your_iam_profile_name"
+git_repository = { owner = "your_github_handle", name = "your_repo_name", branch = "main" }
+```
 
 
 ## Use
