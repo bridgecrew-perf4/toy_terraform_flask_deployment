@@ -1,6 +1,15 @@
 # toy_terraform_flask_deployment
 
-A simple POC for working with AWS via Terraform.  Currently this will only work with a flask application running within docker, but further changes will make this more modular.
+A simple POC for working with AWS via Terraform.  Currently this will only work with a flask application running within docker, but further changes will make this more modular. This project will create:
+- a vpc with 2 public and 2 private subnets across 2 azs
+- an internet gateway and nat gateway for public and private subnet routes
+- security groups for the alb and the fargate cluster
+- appropriate IAM roles
+- an alb, currently serving only http traffic
+- a fargate cluster
+- a codepipeline that uses codebuild to build the container and push to the created ecr, and then deploy the latest build to the fargate cluster
+
+After the project is launched, going forward, commits made to the targeted repo will be automatically deployed on a successful build.
 
 ## Requirements
 - AWS account 
