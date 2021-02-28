@@ -51,7 +51,7 @@ module "pipeline" {
   app_service_name    = "${var.prefix}-cluster"
   pipeline_name       = "${var.prefix}-container-pipeline"
 
-  bucket_name    = "${var.prefix}toygithubflask"
+  bucket_name    = "${var.prefix}-build-flask-"
   project_name   = "${var.prefix}-flask-codebuild"
   git_repository = var.git_repository
   oauth_token    = var.oauth_token
