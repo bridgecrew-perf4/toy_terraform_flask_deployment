@@ -1,13 +1,20 @@
 provider "aws" {
   profile = var.profile
-  region  = var.primary-region
+  region  = var.region
   alias   = "main-account"
+}
+
+#created and managed in separate terraform project.
+data "aws_route53_zone" "main_zone" {
+    name = var.domain_name
+    provider = aws.main-account
+    private_zone = false
 }
 
 module "network" {
   source    = "github.com/npc-code/toy_terraform_network.git"
   profile   = var.profile
-  region    = var.primary-region
+  region    = var.region
   base_cidr = "${var.vpc_cidr}"
 
   providers = {
@@ -27,11 +34,12 @@ module "ecs" {
   external_ip           = var.external_ip
   vpc_id                = module.network.vpc_id
   alb_port              = 80
-  region                = var.primary-region
+  region                = var.region
   ecr_repo_name         = "${var.prefix}-ecr-repo"
   subnets               = module.network.public_subnets
   container_subnets     = module.network.private_subnets
-
+  zone_id               = data.aws_route53_zone.main_zone.zone_id
+  domain_name           = "${var.prefix}.${var.domain_name}"
   providers = {
     aws = aws.main-account
   }
@@ -39,7 +47,7 @@ module "ecs" {
 
 module "pipeline" {
   source = "github.com/npc-code/toy_terraform_code_pipeline.git"
-  region = var.primary-region
+  region = var.region
 
   cluster_name   = "${var.prefix}-cluster"
   repository_url = module.ecs.ecr_webapp_repository_url

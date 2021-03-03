@@ -3,7 +3,7 @@ variable "profile" {
   default = ""
 }
 
-variable "primary-region" {
+variable "region" {
   type    = string
   default = "us-east-2"
 }
@@ -46,6 +46,11 @@ variable "git_repository" {
   }
 }
 
+variable "domain_name" {
+    type = string
+    description = "Domain name for AWS Route53 hosted zone"
+}
+
 variable "prefix" {
   description = "This is the environment where your webapp is deployed. qa, prod, or dev"
 }
@@ -57,4 +62,5 @@ variable "vpc_cidr" {
 variable "oauth_token" {
   description = "This is the oauth token used by AWS CodePipeline to access the repo"
 }
+
 
