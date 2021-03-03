@@ -17,6 +17,7 @@ After the project is launched, going forward, commits made to the targeted repo 
 - Terraform
 - A github repo to use as your target repository
 - oauth token created on github with access to your target repository
+- route53 public domain (further work will make this optional in child modules, but given the ease of use/cost, I would encourage having one)
 
 ## Dependencies
 - https://github.com/npc-code/toy_ecs_code_pipeline
