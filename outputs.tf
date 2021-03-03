@@ -3,5 +3,5 @@ output "alb_dns" {
 }
 
 output "url" {
-    value = module.ecs.url
+  value = module.ecs.url
 }

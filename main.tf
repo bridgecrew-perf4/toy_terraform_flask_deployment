@@ -6,9 +6,9 @@ provider "aws" {
 
 #created and managed in separate terraform project.
 data "aws_route53_zone" "main_zone" {
-    name = var.domain_name
-    provider = aws.main-account
-    private_zone = false
+  name         = var.domain_name
+  provider     = aws.main-account
+  private_zone = false
 }
 
 module "network" {
@@ -39,7 +39,8 @@ module "ecs" {
   subnets               = module.network.public_subnets
   container_subnets     = module.network.private_subnets
   zone_id               = data.aws_route53_zone.main_zone.zone_id
-  domain_name           = "${var.prefix}.${var.domain_name}"
+  domain_name           = var.url
+  use_cert              = var.use_tls
   providers = {
     aws = aws.main-account
   }

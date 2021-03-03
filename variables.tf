@@ -47,8 +47,8 @@ variable "git_repository" {
 }
 
 variable "domain_name" {
-    type = string
-    description = "Domain name for AWS Route53 hosted zone"
+  type        = string
+  description = "Domain name for AWS Route53 hosted zone"
 }
 
 variable "prefix" {
@@ -61,6 +61,16 @@ variable "vpc_cidr" {
 
 variable "oauth_token" {
   description = "This is the oauth token used by AWS CodePipeline to access the repo"
+}
+
+variable "use_tls" {
+  type        = bool
+  description = "whether we would like to use a cert or not"
+}
+
+variable "url" {
+  type        = string
+  description = "base url to use for the app"
 }
 
 
