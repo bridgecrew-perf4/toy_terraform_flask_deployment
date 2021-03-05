@@ -38,6 +38,9 @@ vpc_cidr       = "10.1.0.0/16"
 oauth_token    = "your_token_here"
 profile        = "your_iam_profile_name"
 git_repository = { owner = "your_github_handle", name = "your_repo_name", branch = "main" }
+domain_name    = "example.com"
+use_tls        = true
+url            = "dev.example.com"
 ```
 
 
