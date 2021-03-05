@@ -8,6 +8,7 @@ A simple POC for working with AWS via Terraform.  Currently this will only work 
 - an alb, currently serving only http traffic
 - a fargate cluster
 - a codepipeline that uses codebuild to build the container and push to the created ecr, and then deploy the latest build to the fargate cluster
+- if use_tls is set to true, will create an ACM cert for the passed domain.  requires a route53 public zone using a domain you own.
 
 After the project is launched, going forward, commits made to the targeted repo will be automatically deployed on a successful build.
 
